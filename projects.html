@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Projects | Bansari</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family:"Segoe UI",system-ui; }
+
+    body {
+      min-height: 100vh;
+      color: #fff;
+      background: radial-gradient(ellipse at bottom, #0b1635 0%, #020617 70%);
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content:"";
+      position:fixed; inset:0;
+      background:
+        radial-gradient(1px 1px at 10% 20%, #fff, transparent),
+        radial-gradient(1px 1px at 30% 80%, #fff, transparent),
+        radial-gradient(1px 1px at 70% 40%, #fff, transparent),
+        radial-gradient(1px 1px at 90% 70%, #fff, transparent),
+        radial-gradient(1px 1px at 50% 50%, #fff, transparent);
+      background-size:400px 400px;
+      animation:starsMove 120s linear infinite;
+      opacity:.6; z-index:-3;
+    }
+
+    @keyframes starsMove {
+      from {background-position:0 0;}
+      to {background-position:-2000px 1000px;}
+    }
+
+    .nebula {
+      position:fixed; inset:-20%;
+      background:
+        radial-gradient(circle at 30% 40%, rgba(0,120,255,0.18), transparent 40%),
+        radial-gradient(circle at 70% 60%, rgba(140,0,255,0.15), transparent 45%),
+        radial-gradient(circle at 40% 80%, rgba(0,255,200,0.12), transparent 50%);
+      filter: blur(70px);
+      z-index:-2;
+      animation: nebulaFloat 22s ease-in-out infinite alternate;
+    }
+
+    @keyframes nebulaFloat {
+      from {transform:translateY(0);}
+      to {transform:translateY(-60px);}
+    }
+
+    canvas { position:fixed; inset:0; z-index:-1; }
+
+    /* Updated Nav Styling */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: rgba(2, 6, 23, 0.8);
+      backdrop-filter: blur(10px);
+      padding: 20px 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(56, 189, 248, 0.1);
+      z-index: 1000;
+    }
+
+    .nav-brand {
+      font-size: 24px;
+      font-weight: 700;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .nav-links a {
+      color: #7dd3fc;
+      margin-left: 30px;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #38bdf8;
+    }
+
+    .projects-header { text-align:center; padding:120px 20px 40px; }
+    .projects-header h1 { font-size:3rem; }
+    .projects-header p { color:#9fb4ff; margin-top:10px; }
+
+    .projects-grid {
+      max-width:1400px; margin:0 auto;
+      padding:40px 30px 100px;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+      gap:30px;
+    }
+
+    .project-card {
+      background:rgba(10,20,50,.55);
+      border-radius:18px; padding:26px;
+      backdrop-filter:blur(12px);
+      border:1px solid rgba(0,160,255,.25);
+      transition:.4s;
+    }
+
+    .project-card:hover {
+      transform:translateY(-6px) scale(1.01);
+      border-color:rgba(0,180,255,.6);
+      box-shadow:0 0 40px rgba(0,160,255,.25);
+    }
+
+    .flagship {
+      border:1px solid rgba(0,200,255,.7);
+      box-shadow:0 0 60px rgba(0,160,255,.35);
+    }
+
+    .badge {
+      display:inline-block; padding:4px 10px;
+      border-radius:999px;
+      background:linear-gradient(135deg,#00c6ff,#0072ff);
+      font-size:.7rem; font-weight:600; margin-bottom:10px;
+    }
+
+    .project-desc { color:#cfd8ff; margin-bottom:14px; }
+
+    .project-points li {
+      list-style:none; margin-bottom:6px;
+      padding-left:14px; color:#b8c6ff;
+      position:relative;
+    }
+    .project-points li::before { content:"•"; position:absolute; left:0; color:#4da3ff; }
+
+    .tech-tags { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px; }
+    .tech-tag {
+      font-size:.7rem; padding:5px 10px; border-radius:999px;
+      background:rgba(0,140,255,.15);
+      border:1px solid rgba(0,160,255,.35);
+      color:#9fd3ff;
+    }
+
+    .project-actions { display:flex; gap:10px; }
+    .btn {
+      flex:1; padding:9px 0; border-radius:10px;
+      text-align:center; font-size:.85rem;
+      font-weight:600; cursor:pointer; text-decoration:none;
+    }
+
+    .btn-github { border:1px solid rgba(0,160,255,.5); color:#7cc9ff; background:rgba(0,0,0,.2); }
+    .btn-details { background:linear-gradient(135deg,#00c6ff,#0072ff); color:#fff; }
+
+    .modal {
+      position:fixed; inset:0;
+      background:rgba(2,6,23,.85);
+      display:none; align-items:center; justify-content:center;
+      z-index:10;
+    }
+
+    .modal-content {
+      background:rgba(10,20,50,.9);
+      max-width:900px; width:90%;
+      max-height:85vh; overflow:auto;
+      border-radius:20px; padding:30px;
+      border:1px solid rgba(0,160,255,.4);
+      box-shadow:0 0 60px rgba(0,160,255,.4);
+    }
+
+    .close-btn { float:right; cursor:pointer; font-size:1.2rem; color:#7cc9ff; }
+
+    .shooting-star {
+      position:fixed;
+      width:2px; height:120px;
+      background:linear-gradient(180deg, white, transparent);
+      animation: shoot 1.2s linear forwards;
+      z-index:-1;
+    }
+
+    @keyframes shoot {
+      from { transform:translateY(-150px) translateX(0); opacity:1;}
+      to { transform:translateY(120vh) translateX(300px); opacity:0;}
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-brand">Bansari</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="experience.html">Experience</a>
+      <a href="projects.html">Projects</a>
+      <a href="https://github.com/bansari0105" target="_blank">GitHub</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </nav>
+
+<div class="nebula"></div>
+<canvas id="particles"></canvas>
+
+<section class="projects-header">
+  <h1>Projects</h1>
+  <p>AI, Machine Learning, Full-Stack & Intelligent Systems</p>
+</section>
+
+<section class="projects-grid">
+
+<div class="project-card flagship">
+  <span class="badge">Flagship ⭐</span>
+  <h3>Smart Placement Assistant</h3>
+  <p class="project-desc">AI-powered career guidance & placement automation platform.</p>
+  <ul class="project-points">
+    <li>ML-based student–company matching engine</li>
+    <li>NLP resume parsing & skill extraction</li>
+    <li>Automated eligibility & shortlisting</li>
+    <li>Firebase push notifications & reminders</li>
+    <li>Placement analytics dashboards</li>
+    <li>ESP32 IoT placement display boards</li>
+  </ul>
+  <div class="tech-tags">
+    <span class="tech-tag">ML</span><span class="tech-tag">NLP</span><span class="tech-tag">Flutter</span><span class="tech-tag">Firebase</span><span class="tech-tag">IoT</span>
+  </div>
+  <div class="project-actions">
+    <a href="https://github.com/bansari0105/Smart-Placement-Assistant" target="_blank" class="btn btn-github">GitHub</a>
+    <a class="btn btn-details" onclick="openModal('placement')">View Details</a>
+  </div>
+</div>
+
+<div class="project-card">
+  <h3>Docling OCR Pipeline</h3>
+  <p class="project-desc">Intelligent document extraction for scanned & native PDFs.</p>
+  <ul class="project-points">
+    <li>Layout-aware OCR processing</li>
+    <li>Automatic OCR fallback detection</li>
+    <li>Bounding-box semantic extraction</li>
+    <li>Multi-language text recognition</li>
+    <li>Table & form structure detection</li>
+    <li>NLP-based post-processing cleanup</li>
+  </ul>
+  <div class="tech-tags">
+    <span class="tech-tag">OCR</span><span class="tech-tag">Python</span><span class="tech-tag">NLP</span><span class="tech-tag">ML</span>
+  </div>
+  <div class="project-actions">
+    <a href="https://github.com/bansari0105/docling-ocr-pipeline" target="_blank" class="btn btn-github">GitHub</a>
+    <a class="btn btn-details" onclick="openModal('ocr')">View Details</a>
+  </div>
+</div>
+
+<div class="project-card">
+  <h3>Smart Attendance System</h3>
+  <p class="project-desc">Automated AI + IoT attendance system.</p>
+  <ul class="project-points">
+    <li>Face recognition attendance marking</li>
+    <li>ESP32 real-time device sync</li>
+    <li>Live attendance dashboards</li>
+    <li>Proxy & fraud detection</li>
+    <li>Student & faculty role access</li>
+    <li>Cloud-based attendance storage</li>
+  </ul>
+  <div class="tech-tags">
+    <span class="tech-tag">Python</span><span class="tech-tag">OpenCV</span><span class="tech-tag">IoT</span><span class="tech-tag">ESP32</span>
+  </div>
+  <div class="project-actions">
+    <a class="btn btn-github">GitHub</a>
+    <a class="btn btn-details" onclick="openModal('attendance')">View Details</a>
+  </div>
+</div>
+
+<div class="project-card">
+  <h3>ReWear — E-Commerce</h3>
+  <p class="project-desc">Sustainable resale fashion platform.</p>
+  <ul class="project-points">
+    <li>Buyer & seller role dashboards</li>
+    <li>JWT-secured authentication</li>
+    <li>Product lifecycle management</li>
+    <li>Sustainability impact tracking</li>
+    <li>Inventory & order management</li>
+    <li>Green commerce analytics</li>
+  </ul>
+  <div class="tech-tags">
+    <span class="tech-tag">React</span><span class="tech-tag">Node.js</span><span class="tech-tag">MongoDB</span><span class="tech-tag">JWT</span>
+  </div>
+  <div class="project-actions">
+    <a href="https://github.com/bansari0105/ReWear" target="_blank" class="btn btn-github">GitHub</a>
+    <a class="btn btn-details" onclick="openModal('rewear')">View Details</a>
+  </div>
+</div>
+
+<div class="project-card">
+  <h3>Personal AI Productivity Agent</h3>
+  <p class="project-desc">Agentic AI for productivity & learning.</p>
+  <ul class="project-points">
+    <li>Multi-agent task planning system</li>
+    <li>Behavior & habit modeling</li>
+    <li>Context-aware recommendations</li>
+    <li>Learning optimization engine</li>
+    <li>Goal tracking & prioritization</li>
+    <li>Personalized workflow automation</li>
+  </ul>
+  <div class="tech-tags">
+    <span class="tech-tag">Agentic AI</span><span class="tech-tag">ML</span><span class="tech-tag">NLP</span><span class="tech-tag">Python</span>
+  </div>
+  <div class="project-actions">
+    <a href="https://github.com/bansari0105/Personal-AI-Productivity-Learning-Agent" target="_blank" class="btn btn-github">GitHub</a>
+    <a class="btn btn-details" onclick="openModal('agent')">View Details</a>
+  </div>
+</div>
+
+</section>
+
+<div class="modal" id="modal">
+  <div class="modal-content" id="modalContent">
+    <span class="close-btn" onclick="closeModal()">✖</span>
+    <div id="caseText"></div>
+  </div>
+</div>
+
+<script>
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
+let w,h,particles=[];
+function resize(){w=canvas.width=window.innerWidth;h=canvas.height=window.innerHeight;}
+window.onresize=resize; resize();
+
+for(let i=0;i<120;i++){
+  particles.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*2+0.5,a:Math.random()*Math.PI*2,s:Math.random()*0.3+0.1});
+}
+function animate(){
+  ctx.clearRect(0,0,w,h);
+  particles.forEach(p=>{
+    p.a+=0.001;
+    p.x+=Math.cos(p.a)*p.s;
+    p.y+=Math.sin(p.a)*p.s;
+    if(p.x<0)p.x=w;if(p.x>w)p.x=0;
+    if(p.y<0)p.y=h;if(p.y>h)p.y=0;
+    ctx.fillStyle="rgba(160,200,255,0.8)";
+    ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();
+  });
+  requestAnimationFrame(animate);
+}
+animate();
+
+setInterval(()=>{
+  const star=document.createElement("div");
+  star.className="shooting-star";
+  star.style.left=Math.random()*window.innerWidth+"px";
+  star.style.top="-150px";
+  document.body.appendChild(star);
+  setTimeout(()=>star.remove(),1200);
+},4000);
+
+const cases = {
+placement:`<h2>Smart Placement Assistant</h2><h3>Case Study</h3><p>Built to digitize and automate end-to-end university placement workflows using AI.</p><h3>Use Case</h3><ul><li>Automated student–company eligibility matching</li><li>AI-powered shortlisting & recommendations</li><li>Centralized placement tracking</li></ul><h3>Innovation</h3><ul><li>ML-based matching engine</li><li>NLP resume intelligence</li><li>IoT-based live placement boards</li></ul><h3>Impact</h3><ul><li>Reduced manual placement workload</li><li>Improved job–student fit accuracy</li><li>Real-time placement insights</li></ul>`,
+ocr:`<h2>Docling OCR Pipeline</h2><h3>Case Study</h3><p>Designed to extract structured data from complex scanned and native documents.</p><h3>Use Case</h3><ul><li>Invoice & receipt processing</li><li>Academic paper digitization</li><li>Scanned archive conversion</li></ul><h3>Innovation</h3><ul><li>Hybrid OCR + layout intelligence</li><li>Bounding-box semantic parsing</li><li>NLP-based cleanup & correction</li></ul><h3>Impact</h3><ul><li>High accuracy text extraction</li><li>Reduced manual data entry</li><li>Improved document digitization speed</li></ul>`,
+attendance:`<h2>Smart Attendance System</h2><h3>Case Study</h3><p>Automates attendance using AI face recognition and IoT integration.</p><h3>Use Case</h3><ul><li>Classroom attendance automation</li><li>Lab & exam attendance validation</li><li>Faculty attendance monitoring</li></ul><h3>Innovation</h3><ul><li>Face recognition with OpenCV</li><li>ESP32-based real-time sync</li><li>Cloud attendance dashboards</li></ul><h3>Impact</h3><ul><li>Reduced proxy attendance</li><li>Improved attendance accuracy</li><li>Lower administrative overhead</li></ul>`,
+rewear:`<h2>ReWear — E-Commerce</h2><h3>Case Study</h3><p>Built to promote sustainable fashion through resale and reuse.</p><h3>Use Case</h3><ul><li>Second-hand clothing marketplace</li><li>Seller inventory management</li><li>Buyer purchase workflows</li></ul><h3>Innovation</h3><ul><li>Lifecycle & sustainability tracking</li><li>JWT-secured multi-role platform</li><li>Green commerce analytics</li></ul><h3>Impact</h3><ul><li>Encourages circular economy</li><li>Reduces textile waste</li><li>Promotes eco-conscious shopping</li></ul>`,
+agent:`<h2>Personal AI Productivity Agent</h2><h3>Case Study</h3><p>Agentic AI system to improve productivity and learning efficiency.</p><h3>Use Case</h3><ul><li>Personal task planning</li><li>Goal tracking & prioritization</li><li>Learning schedule optimization</li></ul><h3>Innovation</h3><ul><li>Multi-agent orchestration</li><li>Behavior modeling</li><li>Context-aware AI reasoning</li></ul><h3>Impact</h3><ul><li>Improved time management</li><li>Higher productivity levels</li><li>Personalized workflow automation</li></ul>`
+};
+
+function openModal(key){
+  document.getElementById("caseText").innerHTML = cases[key];
+  document.getElementById("modal").style.display="flex";
+}
+function closeModal(){
+  document.getElementById("modal").style.display="none";
+}
+</script>
+
+</body>
+</html>

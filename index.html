@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bansari | AI/ML Engineer & Data Analyst</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", system-ui;
+    }
+
+    body {
+      min-height: 100vh;
+      color: #fff;
+      background: radial-gradient(ellipse at bottom, #081533 0%, #020617 70%);
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(1px 1px at 10% 20%, #fff, transparent),
+        radial-gradient(1px 1px at 30% 80%, #fff, transparent),
+        radial-gradient(1px 1px at 70% 40%, #fff, transparent),
+        radial-gradient(1px 1px at 90% 70%, #fff, transparent),
+        radial-gradient(1px 1px at 50% 50%, #fff, transparent);
+      background-size: 400px 400px;
+      animation: starsMove 120s linear infinite;
+      opacity: .55;
+      z-index: -3;
+    }
+
+    @keyframes starsMove {
+      from { background-position: 0 0; }
+      to { background-position: -2000px 1000px; }
+    }
+
+    .nebula {
+      position: fixed;
+      inset: -20%;
+      background:
+        radial-gradient(circle at 30% 40%, rgba(0,120,255,0.22), transparent 45%),
+        radial-gradient(circle at 70% 60%, rgba(120,0,255,0.18), transparent 50%),
+        radial-gradient(circle at 40% 80%, rgba(0,255,200,0.15), transparent 55%);
+      filter: blur(90px);
+      z-index: -2;
+      animation: nebulaFloat 22s ease-in-out infinite alternate;
+    }
+
+    @keyframes nebulaFloat {
+      from { transform: translateY(0); }
+      to { transform: translateY(-60px); }
+    }
+
+    .container {
+      width: min(1100px, 92%);
+      margin: auto;
+    }
+
+    /* ===== NAVBAR STYLING ===== */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 18px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: blur(14px);
+      background: rgba(2,6,23,0.65);
+      z-index: 1000;
+      border-bottom: 1px solid rgba(56, 189, 248, 0.1);
+    }
+
+    .nav-brand {
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .nav-links a {
+      color: #7dd3fc;
+      margin-left: 20px;
+      text-decoration: none;
+      transition: color 0.3s;
+      font-size: 0.95rem;
+    }
+
+    .nav-links a:hover {
+      color: #38bdf8;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      padding: 140px 0 100px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 46px;
+      margin-bottom: 12px;
+    }
+
+    .hero h1 span {
+      color: #38bdf8;
+    }
+
+    .hero h2 {
+      font-size: 26px;
+      margin-bottom: 16px;
+      font-weight: 600;
+    }
+
+    .hero p {
+      max-width: 760px;
+      margin: 0 auto 34px;
+      color: #cbd5f5;
+      font-size: 16px;
+    }
+
+    .hero-buttons a {
+      display: inline-block;
+      margin: 0 10px;
+      padding: 14px 30px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: .35s;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+      color: #020617;
+      box-shadow: 0 0 25px rgba(56,189,248,.45);
+    }
+
+    .btn-outline {
+      border: 2px solid #38bdf8;
+      color: #38bdf8;
+    }
+
+    .hero-buttons a:hover {
+      transform: translateY(-4px);
+    }
+
+    /* ===== SECTION TITLES ===== */
+    .section-title {
+      font-size: 28px;
+      margin-bottom: 34px;
+      color: #7dd3fc;
+    }
+    .highlight-title {
+      text-align: center;
+    }
+
+    /* ===== AT A GLANCE ===== */
+    .glance-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 26px;
+      margin-bottom: 90px;
+    }
+
+    .glance-card {
+      background: linear-gradient(180deg, rgba(8,16,45,.9), rgba(4,8,28,.95));
+      border-radius: 18px;
+      padding: 28px 22px;
+      min-height: 135px;
+      text-align: center;
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(56,189,248,.45);
+      box-shadow: 0 0 24px rgba(56,189,248,.3), inset 0 0 14px rgba(56,189,248,.15);
+      transition: .35s;
+    }
+
+    .glance-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 0 34px rgba(56,189,248,.5), inset 0 0 18px rgba(56,189,248,.22);
+    }
+
+    .glance-card h3 {
+      font-size: 28px;
+      color: #4fd1ff;
+      margin-bottom: 6px;
+    }
+
+    /* ===== WHAT I DO ===== */
+    .do-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+      margin-bottom: 100px;
+    }
+
+    .do-card {
+      background: linear-gradient(180deg, rgba(8,16,45,.92), rgba(4,8,28,.97));
+      border-radius: 20px;
+      padding: 30px 28px;
+      min-height: 185px;
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(56,189,248,.4);
+      box-shadow: 0 0 28px rgba(56,189,248,.32), inset 0 0 16px rgba(56,189,248,.16);
+      transition: .35s;
+    }
+
+    .do-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 0 40px rgba(56,189,248,.55), inset 0 0 22px rgba(56,189,248,.24);
+    }
+
+    .do-card h4 {
+      color: #7dd3fc;
+      margin-bottom: 12px;
+    }
+
+    .do-card p {
+      color: #cbd5f5;
+      font-size: 14px;
+    }
+
+    /* ===== RECENT HIGHLIGHT ===== */
+    .highlight-card {
+      background: linear-gradient(180deg, rgba(8,16,45,.95), rgba(4,8,28,1));
+      border-radius: 22px;
+      padding: 34px 36px;
+      max-width: 720px;
+      margin: 0 auto 110px;
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(56,189,248,.55);
+      box-shadow: 0 0 42px rgba(56,189,248,.45), inset 0 0 22px rgba(56,189,248,.2);
+    }
+
+    .highlight-card h4 {
+      color: #4fd1ff;
+      margin-bottom: 12px;
+      font-size: 20px;
+    }
+
+    /* ===== CTA ===== */
+    .cta {
+      text-align: center;
+      margin-bottom: 100px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 26px;
+      color: #94a3b8;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-brand">Bansari</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="experience.html">Experience</a>
+      <a href="projects.html">Projects</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </nav>
+
+  <div class="nebula"></div>
+
+  <section class="hero">
+    <div class="container">
+      <h1>Hi, I'm <span>Bansari Bhandari</span> 👋</h1>
+      <h2>AI/ML Engineer & Data Analyst</h2>
+      <p>
+        I work on machine learning models, data analysis, and intelligent systems,
+        with growing interest in building end-to-end data-driven applications.
+      </p>
+
+      <div class="hero-buttons">
+        <a href="skills.html" class="btn-primary">View Skills</a>
+        <a href="resume.pdf" class="btn-outline">View Resume</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="container">
+    <h2 class="section-title">At a Glance</h2>
+    <div class="glance-grid">
+      <div class="glance-card"><h3>💼 1+</h3><p>Internships Completed</p></div>
+      <div class="glance-card"><h3>🚀 8+</h3><p>AI/ML Projects</p></div>
+      <div class="glance-card"><h3>🛠️ 15+</h3><p>Technologies Used</p></div>
+      <div class="glance-card"><h3>🏆 2+</h3><p>Hackathons / Certifications</p></div>
+    </div>
+  </section>
+
+  <section class="container">
+    <h2 class="section-title">What I Do</h2>
+    <div class="do-grid">
+      <div class="do-card"><h4>🤖 Machine Learning & AI</h4><p>Build predictive models and intelligent systems.</p></div>
+      <div class="do-card"><h4>📊 Data Analytics & Visualization</h4><p>Analyze data and create meaningful insights.</p></div>
+      <div class="do-card"><h4>🧠 NLP & Computer Vision</h4><p>Text processing and image-based ML systems.</p></div>
+      <div class="do-card"><h4>⚙️ End-to-End ML Apps</h4><p>Deploy ML models into full applications.</p></div>
+    </div>
+  </section>
+
+  <section class="container">
+    <h2 class="section-title highlight-title">Recent Highlight</h2>
+    <div class="highlight-card">
+      <h4>✨ Machine Learning Intern at <span style="color:#38bdf8">ABC Tech</span></h4>
+      <p>
+        Developed a Smart Placement Assistant using NLP and ML, which analyzed resumes
+        and job descriptions to enhance candidate-company matches. Improved placement
+        efficiency by 30%.
+      </p>
+    </div>
+  </section>
+
+  <section class="cta container" id="cta">
+    <h2>Let’s Work Together 🤝</h2>
+    <div class="hero-buttons">
+      <a href="contact.html" class="btn-primary">Contact Me</a>
+      <a href="resume.pdf" class="btn-outline">Download Resume</a>
+    </div>
+    <p style="margin-top:12px; color:#cbd5f5;">
+      Open to opportunities in AI/ML engineering, internships, and ML/AI consulting.
+    </p>
+  </section>
+
+  <footer>
+    © 2026 Bansari | AI/ML & Data Portfolio
+  </footer>
+
+</body>
+</html>
