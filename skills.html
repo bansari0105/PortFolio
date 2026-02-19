@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Skills & Expertise | Bansari</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --primary-cyan: #38bdf8;
+      --primary-purple: #a855f7;
+      --glass-bg: rgba(10, 20, 50, 0.65);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+
+    body {
+      background: #020617;
+      color: #fff;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* ===== STARFIELD BACKGROUND ===== */
+    #star-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background: radial-gradient(circle at center, #020617 0%, #000 100%);
+    }
+
+    /* ===== NAVIGATION ===== */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 20px 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: blur(15px);
+      background: rgba(2, 6, 23, 0.8);
+      z-index: 1000;
+      border-bottom: 1px solid rgba(56, 189, 248, 0.1);
+    }
+
+    .nav-brand { font-weight: 700; font-size: 1.5rem; color: #fff; text-decoration: none; }
+    .nav-links a { color: #7dd3fc; margin-left: 25px; text-decoration: none; transition: 0.3s; }
+    .nav-links a:hover { color: var(--primary-cyan); }
+
+    .container {
+      max-width: 1300px;
+      margin: 140px auto 60px;
+      padding: 0 20px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 60px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      background: linear-gradient(to right, var(--primary-cyan), #fff, var(--primary-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* ===== GLOWING CORNER CARDS ===== */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 35px;
+    }
+
+    .skill-card {
+      position: relative;
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      border-radius: 25px; /* Deeply rounded modern look */
+      padding: 45px 30px;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    /* The "Shine" Effect on corners */
+    .skill-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 25px;
+      padding: 2px; /* Border thickness */
+      background: linear-gradient(135deg, var(--primary-cyan), transparent 30%, transparent 70%, var(--primary-purple));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0.5;
+      transition: opacity 0.4s ease;
+    }
+
+    .skill-card:hover::before {
+      opacity: 1;
+      background: linear-gradient(135deg, #fff, var(--primary-cyan), transparent, var(--primary-purple), #fff);
+      animation: shineRotate 3s linear infinite;
+    }
+
+    @keyframes shineRotate {
+      0% { filter: hue-rotate(0deg); }
+      100% { filter: hue-rotate(360deg); }
+    }
+
+    .skill-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 0 30px rgba(56, 189, 248, 0.2);
+    }
+
+    .skill-card h2 {
+      font-size: 1.6rem;
+      color: #fff;
+      margin-bottom: 30px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+    }
+
+    /* ===== SLEEK UNIFORM TAGS ===== */
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .tag {
+      padding: 10px 22px;
+      font-size: 0.9rem;
+      color: #cbd5e1;
+      background: rgba(2, 6, 23, 0.8);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      border-radius: 12px; /* Matching rounded theme */
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    .tag:hover {
+      background: var(--primary-cyan);
+      color: #020617;
+      border-color: #fff;
+      box-shadow: 0 0 15px var(--primary-cyan);
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 600px) {
+      .nav-links { display: none; } /* Hide nav on mobile for focus */
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="star-canvas"></canvas>
+
+<nav>
+  <a href="index.html" class="nav-brand">Bansari</a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="experience.html">Experience</a>
+    <a href="projects.html">Projects</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</nav>
+
+<div class="container">
+  <h1>Skills & Expertise</h1>
+
+  <div class="skills-grid">
+    <div class="skill-card">
+      <h2>Intelligence</h2>
+      <div class="skill-tags">
+        <div class="tag">Machine Learning</div>
+        <div class="tag">Deep Learning</div>
+        <div class="tag">Neural Networks</div>
+        <div class="tag">NLP</div>
+        <div class="tag">Computer Vision</div>
+        <div class="tag">AI</div>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <h2>Development</h2>
+      <div class="skill-tags">
+        <div class="tag">Python</div>
+        <div class="tag">C / C++</div>
+        <div class="tag">SQL</div>
+        <div class="tag">MERN Stack</div>
+        <div class="tag">DSA</div>
+        <div class="tag">Git & GitHub</div>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <h2>Data Science</h2>
+      <div class="skill-tags">
+        <div class="tag">Data Analysis</div>
+        <div class="tag">MongoDB</div>
+        <div class="tag">PostgreSQL</div>
+        <div class="tag">Pandas</div>
+        <div class="tag">NumPy</div>
+        <div class="tag">Basic R</div>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <h2>Professional</h2>
+      <div class="skill-tags">
+        <div class="tag">Time Management</div>
+        <div class="tag">Collaboration</div>
+        <div class="tag">Teamwork</div>
+        <div class="tag">Communication</div>
+        <div class="tag">Organization</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  /* STARFIELD ANIMATION */
+  const canvas = document.getElementById('star-canvas');
+  const ctx = canvas.getContext('2d');
+  let stars = [];
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+
+  class Star {
+    constructor() { this.reset(); }
+    reset() {
+      this.x = (Math.random() - 0.5) * canvas.width;
+      this.y = (Math.random() - 0.5) * canvas.height;
+      this.z = Math.random() * canvas.width;
+    }
+    update() {
+      this.z -= 1.2;
+      if (this.z <= 0) this.reset();
+    }
+    show() {
+      let sx = (this.x / this.z) * (canvas.width / 2) + canvas.width / 2;
+      let sy = (this.y / this.z) * (canvas.height / 2) + canvas.height / 2;
+      let r = (1 - this.z / canvas.width) * 2;
+      ctx.beginPath();
+      ctx.fillStyle = "white";
+      ctx.arc(sx, sy, r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  for (let i = 0; i < 350; i++) stars.push(new Star());
+
+  function animate() {
+    ctx.fillStyle = 'black';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    stars.forEach(s => { s.update(); s.show(); });
+    requestAnimationFrame(animate);
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+  animate();
+</script>
+
+</body>
+</html>
