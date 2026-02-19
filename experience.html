@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Experience | Bansari</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      color: #e5e7eb;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background: 
+        linear-gradient(rgba(2,6,23,0.7), rgba(2,6,23,0.9)),
+        url("assets/galaxy-bg.jpg") no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at 30% 20%, rgba(56,189,248,0.15), transparent 40%),
+                  radial-gradient(circle at 70% 60%, rgba(168,85,247,0.15), transparent 45%);
+      animation: glowMove 12s ease-in-out infinite alternate;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes glowMove {
+      from { filter: blur(0px); }
+      to { filter: blur(8px); }
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 18px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: blur(14px);
+      background: rgba(2,6,23,0.65);
+      z-index: 1000;
+      border-bottom: 1px solid rgba(56, 189, 248, 0.1);
+    }
+
+    .nav-brand {
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .nav-links a {
+      color: #7dd3fc;
+      margin-left: 20px;
+      text-decoration: none;
+      transition: color 0.3s;
+      font-size: 0.95rem;
+    }
+
+    .nav-links a:hover {
+      color: #38bdf8;
+    }
+
+    .experience-section {
+      max-width: 900px;
+      margin: 120px auto 80px;
+      padding: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .experience-section h1 {
+      font-size: 3rem;
+      margin-bottom: 35px;
+      color: #38bdf8;
+      text-shadow: 0 0 25px rgba(56,189,248,0.7);
+    }
+
+    .experience-card {
+      background: rgba(2, 6, 23, 0.75);
+      backdrop-filter: blur(14px);
+      border-radius: 20px;
+      padding: 35px;
+      box-shadow: 
+        0 0 60px rgba(56,189,248,0.2),
+        inset 0 0 40px rgba(168,85,247,0.08);
+      border: 1px solid rgba(148,163,184,0.15);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .experience-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, transparent, rgba(56,189,248,0.05), transparent);
+      animation: shimmer 6s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes shimmer {
+      from { transform: translateX(-100%); }
+      to { transform: translateX(100%); }
+    }
+
+    .exp-header h2 {
+      font-size: 2.2rem;
+      color: #a855f7;
+      text-shadow: 0 0 15px rgba(168,85,247,0.6);
+    }
+
+    .company {
+      font-size: 1.15rem;
+      color: #cbd5f5;
+      margin-top: 4px;
+    }
+
+    .location-duration {
+      margin: 14px 0;
+      font-style: italic;
+      color: #94a3b8;
+    }
+
+    .description {
+      margin: 20px 0;
+      line-height: 1.8;
+      color: #e2e8f0;
+    }
+
+    .responsibilities {
+      margin: 20px 0;
+      padding-left: 20px;
+    }
+
+    .responsibilities li {
+      margin-bottom: 12px;
+      list-style: none;
+      position: relative;
+      padding-left: 18px;
+    }
+
+    .responsibilities li::before {
+      content: "✦";
+      position: absolute;
+      left: 0;
+      color: #38bdf8;
+      text-shadow: 0 0 10px rgba(56,189,248,0.8);
+    }
+
+    .skills {
+      margin: 22px 0;
+    }
+
+    .skills span {
+      display: inline-block;
+      background: rgba(15,23,42,0.8);
+      color: #38bdf8;
+      padding: 9px 16px;
+      border-radius: 999px;
+      margin: 7px 7px 0 0;
+      font-size: 0.9rem;
+      border: 1px solid rgba(56,189,248,0.25);
+      box-shadow: 0 0 15px rgba(56,189,248,0.25);
+      animation: floatChip 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatChip {
+      from { transform: translateY(0); }
+      to { transform: translateY(-6px); }
+    }
+
+    .cert-btn {
+      margin-top: 30px;
+      background: linear-gradient(135deg, #38bdf8, #a855f7);
+      color: #020617;
+      border: none;
+      padding: 14px 26px;
+      border-radius: 12px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 1rem;
+      box-shadow: 0 0 35px rgba(168,85,247,0.6);
+      transition: all 0.25s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .cert-btn:hover {
+      transform: scale(1.07);
+      box-shadow: 0 0 55px rgba(56,189,248,0.9);
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(6px);
+      z-index: 999;
+    }
+
+    .modal-content {
+      background: rgba(2,6,23,0.9);
+      margin: 5% auto;
+      padding: 30px;
+      border-radius: 18px;
+      width: 85%;
+      max-width: 900px;
+      position: relative;
+      text-align: center;
+      box-shadow: 0 0 70px rgba(168,85,247,0.5);
+      animation: modalPop 0.4s ease;
+    }
+
+    @keyframes modalPop {
+      from { transform: scale(0.85); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .close {
+      position: absolute;
+      top: 12px;
+      right: 18px;
+      font-size: 30px;
+      cursor: pointer;
+      color: #fff;
+    }
+
+    .certificate-img {
+      width: 100%;
+      border-radius: 12px;
+      margin-top: 18px;
+      box-shadow: 0 0 35px rgba(56,189,248,0.4);
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">Bansari</a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="experience.html">Experience</a>
+    <a href="projects.html">Projects</a>
+    <a href="https://github.com/bansari0105" target="_blank">GitHub</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</nav>
+
+<section class="experience-section">
+  <h1>Experience</h1>
+
+  <div class="experience-card">
+    <div class="exp-header">
+      <h2>AI/ML Engineer Intern</h2>
+      <div class="company">Meril Life Sciences Pvt. Ltd.</div>
+    </div>
+
+    <div class="location-duration">
+      Vapi, Gujarat, India | May 2025 – July 2025
+    </div>
+
+    <p class="description">
+      Meril Life Sciences is a global medical device and healthcare technology company.
+      During my internship, I worked on applied AI/ML solutions for real-world healthcare
+      and industrial use cases, gaining hands-on exposure to production-grade AI systems.
+    </p>
+
+    <ul class="responsibilities">
+      <li>Developed and tested machine learning models for real-world datasets.</li>
+      <li>Performed data preprocessing, feature engineering, and model evaluation.</li>
+      <li>Built AI pipelines using Python and machine learning libraries.</li>
+      <li>Collaborated with R&D and software teams on AI-driven systems.</li>
+      <li>Gained experience with production-level AI workflows and deployment concepts.</li>
+    </ul>
+
+    <div class="skills">
+      <span>Python</span>
+      <span>Machine Learning</span>
+      <span>Pandas</span>
+      <span>NumPy</span>
+      <span>Scikit-learn</span>
+      <span>Data Analysis</span>
+      <span>Git</span>
+      <span>Model Evaluation</span>
+      <span>OCR</span>
+      <span>Tesseract OCR</span>
+      <span>Surya OCR</span>
+      <span>Computer Vision</span>
+    </div>
+
+    <button class="cert-btn" onclick="openCertificate()">
+      View Completion Certificate
+    </button>
+  </div>
+</section>
+
+<div id="certificateModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeCertificate()">&times;</span>
+    <h2>Internship Completion Certificate</h2>
+
+    <iframe 
+  src="assets/meril_certificate.pdf" 
+  width="100%" 
+  height="500px"
+  style="border-radius:12px; box-shadow:0 0 35px rgba(56,189,248,0.4);">
+</iframe>
+
+
+    <br><br>
+
+    <a href="assets/meril_certificate.jpg" download class="cert-btn">
+      Download Certificate
+    </a>
+
+  </div>
+</div>
+
+<script>
+function openCertificate() {
+  document.getElementById("certificateModal").style.display = "block";
+}
+
+function closeCertificate() {
+  document.getElementById("certificateModal").style.display = "none";
+}
+
+window.onclick = function(event) {
+  const modal = document.getElementById("certificateModal");
+  if (event.target === modal) {
+    modal.style.display = "none";
+  }
+};
+</script>
+
+</body>
+</html>
