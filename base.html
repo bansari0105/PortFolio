@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bansari | AI/ML Engineer & Data Analyst</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- COMMON STYLES -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", system-ui;
+    }
+
+    body {
+      min-height: 100vh;
+      color: #fff;
+      background: radial-gradient(ellipse at bottom, #081533 0%, #020617 70%);
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(1px 1px at 10% 20%, #fff, transparent),
+        radial-gradient(1px 1px at 30% 80%, #fff, transparent),
+        radial-gradient(1px 1px at 70% 40%, #fff, transparent),
+        radial-gradient(1px 1px at 90% 70%, #fff, transparent),
+        radial-gradient(1px 1px at 50% 50%, #fff, transparent);
+      background-size: 400px 400px;
+      animation: starsMove 120s linear infinite;
+      opacity: .55;
+      z-index: -3;
+    }
+
+    @keyframes starsMove {
+      from { background-position: 0 0; }
+      to { background-position: -2000px 1000px; }
+    }
+
+    .nebula {
+      position: fixed;
+      inset: -20%;
+      background:
+        radial-gradient(circle at 30% 40%, rgba(0,120,255,0.22), transparent 45%),
+        radial-gradient(circle at 70% 60%, rgba(120,0,255,0.18), transparent 50%),
+        radial-gradient(circle at 40% 80%, rgba(0,255,200,0.15), transparent 55%);
+      filter: blur(90px);
+      z-index: -2;
+      animation: nebulaFloat 22s ease-in-out infinite alternate;
+    }
+
+    @keyframes nebulaFloat {
+      from { transform: translateY(0); }
+      to { transform: translateY(-60px); }
+    }
+
+    /* ===== NAVBAR ===== */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 18px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: blur(14px);
+      background: rgba(2,6,23,0.6);
+      z-index: 1000;
+    }
+
+    nav a {
+      color: #7dd3fc;
+      margin-left: 22px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="nebula"></div>
+
+<!-- ✅ NAVBAR (ONCE FOR ALL PAGES) -->
+<nav>
+  <div><strong>Bansari</strong></div>
+  <div>
+    <a href="/">Home</a>
+    <a href="/about">About</a>
+    <a href="/experience">Experience</a>
+    <a href="/projects">Projects</a>
+    <a href="/contact">Contact</a>
+  </div>
+</nav>
+
+<!-- 🔁 PAGE CONTENT WILL COME HERE -->
+{% block content %}{% endblock %}
+
+</body>
+</html>
